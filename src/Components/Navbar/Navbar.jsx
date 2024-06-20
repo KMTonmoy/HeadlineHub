@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
     const [loginOpen, setLoginOpen] = useState(false);
@@ -66,10 +67,10 @@ const Navbar = () => {
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                             </motion.div>
                             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-purple-700 rounded-box w-52 text-white">
-                                    <li><a>Home</a></li>
-                            <li><a>My Favorites</a></li>
-                            <li><a>Contact Us</a></li>
-                            <li><a>About</a></li>
+                                <li><NavLink to={'/'}>Home</NavLink></li>
+                                <li><NavLink to={'/Fav'}>My Favorites</NavLink></li>
+                                <li><NavLink to={'/Contact'}>Contact Us</NavLink></li>
+                                <li><NavLink to={'/About'}>About</NavLink></li>
                             </ul>
                         </div>
                         <motion.a
@@ -84,10 +85,10 @@ const Navbar = () => {
                     </div>
                     <div className="navbar-center hidden lg:flex">
                         <ul className="menu menu-horizontal px-1 text-white">
-                            <li><a>Home</a></li>
-                            <li><a>My Favorites</a></li>
-                            <li><a>Contact Us</a></li>
-                            <li><a>About</a></li>
+                            <li><NavLink to={'/'}>Home</NavLink></li>
+                            <li><NavLink to={'/Fav'}>My Favorites</NavLink></li>
+                            <li><NavLink to={'/Contact'}>Contact Us</NavLink></li>
+                            <li><NavLink to={'/About'}>About</NavLink></li>
                         </ul>
                     </div>
                     <div className="navbar-end">
@@ -107,7 +108,7 @@ const Navbar = () => {
                 </div>
             </motion.div>
             {loginOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+                <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
                     <motion.div
                         initial={{ scale: 0.5, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
@@ -148,7 +149,7 @@ const Navbar = () => {
                 </div>
             )}
             {signupOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+                <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
                     <motion.div
                         initial={{ scale: 0.5, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
@@ -181,50 +182,15 @@ const Navbar = () => {
                                 className="w-full px-4 py-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-purple-600"
                                 required
                             />
+
+
                             <div className="mb-4">
-                                <label className="block text-sm font-medium text-gray-700">Choose Profile:</label>
-                                <div className="mt-1">
-                                    <div>
-                                        <label className="inline-flex items-center">
-                                            <input
-                                                type="radio"
-                                                className="form-radio text-purple-600 focus:ring-purple-500"
-                                                name="profile"
-                                                value="reader"
-                                                checked={selectedProfile === 'reader'}
-                                                onChange={(e) => setSelectedProfile(e.target.value)}
-                                            />
-                                            <span className="ml-2 text-gray-900">Reader</span>
-                                        </label>
-                                    </div>
-                                    <div>
-                                        <label className="inline-flex items-center">
-                                            <input
-                                                type="radio"
-                                                className="form-radio text-purple-600 focus:ring-purple-500"
-                                                name="profile"
-                                                value="writer"
-                                                checked={selectedProfile === 'writer'}
-                                                onChange={(e) => setSelectedProfile(e.target.value)}
-                                            />
-                                            <span className="ml-2 text-gray-900">Writer</span>
-                                        </label>
-                                    </div>
-                                    <div>
-                                        <label className="inline-flex items-center">
-                                            <input
-                                                type="radio"
-                                                className="
-                                                form-radio text-purple-600 focus:ring-purple-500"
-                                                name="profile"
-                                                value="editor"
-                                                checked={selectedProfile === 'editor'}
-                                                onChange={(e) => setSelectedProfile(e.target.value)}
-                                            />
-                                            <span className="ml-2 text-gray-900">Editor</span>
-                                        </label>
-                                    </div>
-                                </div>
+                                <label className="block text-sm font-medium text-gray-700">Upload Profile Picture:</label>
+                                <input
+                                    type="file"
+                                    onChange={handleFileChange}
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-purple-600"
+                                />
                             </div>
                             <div className="mb-4">
                                 <label className="block text-sm font-medium text-gray-700">Select Gender:</label>
@@ -269,14 +235,6 @@ const Navbar = () => {
                                         </label>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="mb-4">
-                                <label className="block text-sm font-medium text-gray-700">Upload Profile Picture:</label>
-                                <input
-                                    type="file"
-                                    onChange={handleFileChange}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-purple-600"
-                                />
                             </div>
                             <div className="mb-4">
                                 <label className="inline-flex items-center">
