@@ -1,0 +1,17 @@
+[
+    {
+        "image": "https://i.ytimg.com/vi/STqm_WtOx_k/maxresdefault.jpg",
+        "title": "Breaking News",
+        "description": "Stay updated with the latest breaking news around the globe."
+    },
+    {
+        "image": "https://www.timeshighereducation.com/student/sites/default/files/styles/default/public/different_sports.jpg?itok=CW5zK9vp",
+        "title": "Sports News",
+        "description": "Catch up on the latest scores, highlights, and sports news."
+    },
+    {
+        "image": "https://kmph.com/resources/media2/16x9/full/730/center/80/ea1c25f2-20e0-4a55-b25b-f1558913d638-jumbo16x9_TularePolicePatrolCar.jpg",
+        "title": "Crime News",
+        "description": "Get insights into crime updates, investigations, and legal developments."
+    }
+]

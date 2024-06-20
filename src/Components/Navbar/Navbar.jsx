@@ -1,48 +1,333 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 
 const Navbar = () => {
+    const [loginOpen, setLoginOpen] = useState(false);
+    const [signupOpen, setSignupOpen] = useState(false);
+    const [selectedProfile, setSelectedProfile] = useState('');
+    const [fullName, setFullName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [gender, setGender] = useState('');
+    const [privacyChecked, setPrivacyChecked] = useState(false);
+    const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
+
+    const openLoginModal = () => setLoginOpen(true);
+    const closeLoginModal = () => setLoginOpen(false);
+
+    const openSignupModal = () => setSignupOpen(true);
+    const closeSignupModal = () => {
+        setSignupOpen(false);
+        setSelectedProfile('');
+        setFullName('');
+        setEmail('');
+        setPassword('');
+        setGender('');
+        setPrivacyChecked(false);
+        setShowPrivacyPolicy(false);
+    };
+
+    const handleSignup = (e) => {
+        e.preventDefault();
+        console.log('Signing up with profile:', selectedProfile, fullName, email, password, gender);
+        closeSignupModal();
+    };
+
+    const handlePrivacyChange = (e) => {
+        setPrivacyChecked(e.target.checked);
+    };
+
+    const togglePrivacyPolicy = () => {
+        setShowPrivacyPolicy(!showPrivacyPolicy);
+    };
+
+    const handleFileChange = (e) => {
+        // handle file upload
+    };
+
     return (
-        <div>
-            <div className="navbar bg-base-100">
-                <div className="navbar-start">
-                    <div className="dropdown">
-                        <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+        <>
+            <motion.div
+                initial={{ y: -100 }}
+                animate={{ y: 0 }}
+                transition={{ type: 'spring', stiffness: 100 }}
+                className="shadow-md bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white"
+            >
+                <div className="navbar px-4 py-2">
+                    <div className="navbar-start">
+                        <div className="dropdown">
+                            <motion.div
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.95 }}
+                                tabIndex={0}
+                                role="button"
+                                className="btn btn-ghost lg:hidden text-white"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                            </motion.div>
+                            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-purple-700 rounded-box w-52 text-white">
+                                    <li><a>Home</a></li>
+                            <li><a>My Favorites</a></li>
+                            <li><a>Contact Us</a></li>
+                            <li><a>About</a></li>
+                            </ul>
                         </div>
-                        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                            <li><a>Item 1</a></li>
-                            <li>
-                                <a>Parent</a>
-                                <ul className="p-2">
-                                    <li><a>Submenu 1</a></li>
-                                    <li><a>Submenu 2</a></li>
-                                </ul>
-                            </li>
-                            <li><a>Item 3</a></li>
+                        <motion.a
+                            href="/"
+                            className="text-2xl font-bold text-white"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 1 }}
+                        >
+                            HeadlineHub
+                        </motion.a>
+                    </div>
+                    <div className="navbar-center hidden lg:flex">
+                        <ul className="menu menu-horizontal px-1 text-white">
+                            <li><a>Home</a></li>
+                            <li><a>My Favorites</a></li>
+                            <li><a>Contact Us</a></li>
+                            <li><a>About</a></li>
                         </ul>
                     </div>
-                    <a className="btn btn-ghost text-xl">daisyUI</a>
+                    <div className="navbar-end">
+                        <button
+                            className="ml-4 btn btn-outline text-white border-white hover:bg-white hover:text-purple-700"
+                            onClick={openLoginModal}
+                        >
+                            Login
+                        </button>
+                        <button
+                            className="ml-4 btn btn-outline text-white border-white hover:bg-white hover:text-purple-700"
+                            onClick={openSignupModal}
+                        >
+                            Signup
+                        </button>
+                    </div>
                 </div>
-                <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1">
-                        <li><a>Item 1</a></li>
-                        <li>
-                            <details>
-                                <summary>Parent</summary>
-                                <ul className="p-2">
-                                    <li><a>Submenu 1</a></li>
-                                    <li><a>Submenu 2</a></li>
-                                </ul>
-                            </details>
-                        </li>
-                        <li><a>Item 3</a></li>
-                    </ul>
+            </motion.div>
+            {loginOpen && (
+                <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+                    <motion.div
+                        initial={{ scale: 0.5, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ type: 'spring', stiffness: 100 }}
+                        className="bg-white p-6 rounded-lg shadow-md"
+                    >
+                        <h2 className="text-2xl font-bold mb-4">Login to HeadlineHub</h2>
+                        <form>
+                            <input
+                                type="text"
+                                placeholder="Username"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-purple-600"
+                                required
+                            />
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-purple-600"
+                                required
+                            />
+                            <div className="flex justify-end">
+                                <button
+                                    type="submit"
+                                    className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700"
+                                >
+                                    Login
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={closeLoginModal}
+                                    className="ml-2 text-gray-600 hover:text-gray-800"
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </motion.div>
                 </div>
-                <div className="navbar-end">
-                    <a className="btn">Button</a>
+            )}
+            {signupOpen && (
+                <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+                    <motion.div
+                        initial={{ scale: 0.5, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ type: 'spring', stiffness: 100 }}
+                        className="bg-white p-6 rounded-lg shadow-md"
+                    >
+                        <h2 className="text-2xl font-bold mb-4">Signup for HeadlineHub</h2>
+                        <form onSubmit={handleSignup}>
+                            <input
+                                type="text"
+                                placeholder="Full Name"
+                                value={fullName}
+                                onChange={(e) => setFullName(e.target.value)}
+                                className="w-full px-4 py-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-purple-600"
+                                required
+                            />
+                            <input
+                                type="email"
+                                placeholder="Email Address"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="w-full px-4 py-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-purple-600"
+                                required
+                            />
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="w-full px-4 py-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-purple-600"
+                                required
+                            />
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium text-gray-700">Choose Profile:</label>
+                                <div className="mt-1">
+                                    <div>
+                                        <label className="inline-flex items-center">
+                                            <input
+                                                type="radio"
+                                                className="form-radio text-purple-600 focus:ring-purple-500"
+                                                name="profile"
+                                                value="reader"
+                                                checked={selectedProfile === 'reader'}
+                                                onChange={(e) => setSelectedProfile(e.target.value)}
+                                            />
+                                            <span className="ml-2 text-gray-900">Reader</span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label className="inline-flex items-center">
+                                            <input
+                                                type="radio"
+                                                className="form-radio text-purple-600 focus:ring-purple-500"
+                                                name="profile"
+                                                value="writer"
+                                                checked={selectedProfile === 'writer'}
+                                                onChange={(e) => setSelectedProfile(e.target.value)}
+                                            />
+                                            <span className="ml-2 text-gray-900">Writer</span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label className="inline-flex items-center">
+                                            <input
+                                                type="radio"
+                                                className="
+                                                form-radio text-purple-600 focus:ring-purple-500"
+                                                name="profile"
+                                                value="editor"
+                                                checked={selectedProfile === 'editor'}
+                                                onChange={(e) => setSelectedProfile(e.target.value)}
+                                            />
+                                            <span className="ml-2 text-gray-900">Editor</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium text-gray-700">Select Gender:</label>
+                                <div className="mt-1">
+                                    <div>
+                                        <label className="inline-flex items-center">
+                                            <input
+                                                type="radio"
+                                                className="form-radio text-purple-600 focus:ring-purple-500"
+                                                name="gender"
+                                                value="male"
+                                                checked={gender === 'male'}
+                                                onChange={(e) => setGender(e.target.value)}
+                                            />
+                                            <span className="ml-2 text-gray-900">Male</span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label className="inline-flex items-center">
+                                            <input
+                                                type="radio"
+                                                className="form-radio text-purple-600 focus:ring-purple-500"
+                                                name="gender"
+                                                value="female"
+                                                checked={gender === 'female'}
+                                                onChange={(e) => setGender(e.target.value)}
+                                            />
+                                            <span className="ml-2 text-gray-900">Female</span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label className="inline-flex items-center">
+                                            <input
+                                                type="radio"
+                                                className="form-radio text-purple-600 focus:ring-purple-500"
+                                                name="gender"
+                                                value="other"
+                                                checked={gender === 'other'}
+                                                onChange={(e) => setGender(e.target.value)}
+                                            />
+                                            <span className="ml-2 text-gray-900">Other</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium text-gray-700">Upload Profile Picture:</label>
+                                <input
+                                    type="file"
+                                    onChange={handleFileChange}
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-purple-600"
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label className="inline-flex items-center">
+                                    <input
+                                        type="checkbox"
+                                        className="form-checkbox text-purple-600 focus:ring-purple-500"
+                                        checked={privacyChecked}
+                                        onChange={handlePrivacyChange}
+                                    />
+                                    <span className="ml-2 text-gray-900">
+                                        I agree to the privacy policy and terms.
+                                    </span>
+                                </label>
+                                <button
+                                    type="button"
+                                    className="ml-2 text-blue-600 hover:underline"
+                                    onClick={togglePrivacyPolicy}
+                                >
+                                    Read Policy
+                                </button>
+                                {showPrivacyPolicy && (
+                                    <div className="mt-2 p-4 bg-gray-100 border border-gray-300 rounded">
+                                        <h3 className="text-lg font-semibold">Privacy Policy and Terms</h3>
+                                        <p className="mt-2 text-sm text-gray-600">
+                                            By signing up, you agree to our privacy policy and terms of service. We collect personal information to provide and improve our services. We do not share your personal information with third parties without your consent, except to comply with legal obligations. You must not use our services for any illegal or unauthorized purpose. Violations may result in suspension or termination of your access.
+                                        </p>
+
+                                    </div>
+                                )}
+                            </div>
+                            <div className="flex justify-end">
+                                <button
+                                    type="submit"
+                                    className={`bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 ${!privacyChecked ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    disabled={!privacyChecked}
+                                >
+                                    Signup
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={closeSignupModal}
+                                    className="ml-2 text-gray-600 hover:text-gray-800"
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </motion.div>
                 </div>
-            </div>
-        </div>
+            )}
+        </>
     );
 };
 
