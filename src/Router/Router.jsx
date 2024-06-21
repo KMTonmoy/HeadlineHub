@@ -7,7 +7,7 @@ import About from "../Pages/About/About";
 import Detail from "../Pages/Detaild/Detail"; 
 import axios from 'axios';
 
-const apiKey = "3a43473d64a34dd2bac5ed87476119f7";
+const apiKey = "776efa5f5c1749008a9e182fbfd09d0d";
 
 export const router = createBrowserRouter([
     {

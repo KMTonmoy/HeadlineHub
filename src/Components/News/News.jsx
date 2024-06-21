@@ -4,7 +4,7 @@ import { FaChevronLeft, FaChevronRight, FaHeart, FaRegHeart } from 'react-icons/
 import { Link } from 'react-router-dom';
 
 const News = () => {
-    const apiKey = "3a43473d64a34dd2bac5ed87476119f7";
+    const apiKey = "776efa5f5c1749008a9e182fbfd09d0d";
     const [articles, setArticles] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -181,7 +181,7 @@ const News = () => {
                                     to={`/article/${encodeURIComponent(article.title)}`}
                                     className="block mt-2 text-blue-600 hover:underline"
                                 >
-                                    Read more
+                                   Detailed Article
                                 </Link>
                             </div>
                         </div>
