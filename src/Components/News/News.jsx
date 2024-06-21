@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaChevronLeft, FaChevronRight, FaHeart, FaRegHeart } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const News = () => {
     const apiKey = "3a43473d64a34dd2bac5ed87476119f7";
@@ -16,20 +17,6 @@ const News = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [favorites, setFavorites] = useState([]);
 
-    // Load favorites from localStorage on component mount
-    useEffect(() => {
-        const storedFavorites = localStorage.getItem('favorites');
-        if (storedFavorites) {
-            setFavorites(JSON.parse(storedFavorites));
-        }
-    }, []);
-
-    // Update localStorage when favorites change
-    useEffect(() => {
-        localStorage.setItem('favorites', JSON.stringify(favorites));
-    }, [favorites]);
-
-    // Fetch news articles
     useEffect(() => {
         const fetchNews = async () => {
             try {
@@ -57,7 +44,6 @@ const News = () => {
         fetchNews();
     }, [currentPage, selectedCategory, searchTerm]);
 
-    // Fetch available categories
     useEffect(() => {
         const fetchCategories = async () => {
             try {
@@ -76,6 +62,17 @@ const News = () => {
 
         fetchCategories();
     }, []);
+
+    useEffect(() => {
+        const storedFavorites = localStorage.getItem('favorites');
+        if (storedFavorites) {
+            setFavorites(JSON.parse(storedFavorites));
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+    }, [favorites]);
 
     const handleNextPage = () => {
         setCurrentPage(prevPage => prevPage + 1);
@@ -108,6 +105,21 @@ const News = () => {
             setFavorites([...favorites, article]);
         }
     };
+
+    const truncateDescription = (description, maxLength) => {
+        if (!description) {
+            return ''; // Return an empty string if description is null or undefined
+        }
+        if (description.length <= maxLength) {
+            return description;
+        }
+        return description.substring(0, maxLength) + '...';
+    };
+
+
+ 
+    console.log(articles)
+
 
     return (
         <div className="container mx-auto px-4 py-8">
@@ -160,15 +172,15 @@ const News = () => {
                                         )}
                                     </button>
                                 </div>
-                                <p className="text-gray-700">{article.description}</p>
-                                <a
-                                    href={article.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                <p className="text-gray-700">
+                                    {truncateDescription(article.description, 80)}
+                                </p>
+                                <Link
+                                    to={`/article/${encodeURIComponent(article.title)}`}
                                     className="block mt-2 text-blue-600 hover:underline"
                                 >
                                     Read more
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     ))}
