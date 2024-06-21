@@ -108,7 +108,7 @@ const News = () => {
 
     const truncateDescription = (description, maxLength) => {
         if (!description) {
-            return ''; // Return an empty string if description is null or undefined
+            return '';
         }
         if (description.length <= maxLength) {
             return description;
@@ -117,7 +117,7 @@ const News = () => {
     };
 
 
- 
+
     console.log(articles)
 
 
@@ -130,9 +130,11 @@ const News = () => {
                     onChange={handleCategoryChange}
                     className="capitalize bg-blue-500 text-white font-bold py-2 px-4 rounded mr-2"
                 >
-                    {availableCategories.map((category, index) => (
-                        <option key={index} value={category}>{category}</option>
-                    ))}
+                
+                    <option value="general">General</option>
+                    <option value="business">Business</option>
+                    <option value="technology">Technology</option>
+                    <option value="entertainment">Entertainment</option>
                 </select>
                 <form onSubmit={handleSearchSubmit} className="flex">
                     <input

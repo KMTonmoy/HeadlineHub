@@ -43,7 +43,7 @@ const Navbar = () => {
     };
 
     const handleFileChange = (e) => {
-        // handle file upload
+         
     };
 
     return (
