@@ -28,7 +28,7 @@ const Favorites = () => {
                             <div className="p-4">
                                 <div className="flex justify-between items-center mb-2">
                                     <h2 className="text-xl font-bold">{article.title}</h2>
-                                    <FaHeart className="text-red-500" />
+                                    <FaHeart className="text-red-500 text-4xl" />
                                 </div>
                                 <p className="text-gray-700">{article.description}</p>
                                 <a
